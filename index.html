@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Launcher Demon</title>
+    <!-- Подключаем файл-инструкцию для Хромбука -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d0d0d, #1a001a);
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .launcher-card {
+            background: rgba(10, 10, 10, 0.9);
+            border: 3px solid #6a1b9a; /* Глубокий фиолетовый */
+            box-shadow: 0 0 25px #6a1b9a, inset 0 0 15px #000000;
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(12px);
+        }
+        h1 {
+            color: #00e676; /* Ядовито-зеленый деformatting */
+            margin-top: 0;
+            text-shadow: 0 0 15px #00e676;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        input, select {
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            border: 2px solid #6a1b9a;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            width: 250px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #00e676;
+            box-shadow: 0 0 10px #00e676;
+        }
+        button {
+            background-color: #00e676;
+            color: black;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            width: 278px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px #00e676;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #6a1b9a;
+            color: white;
+            box-shadow: 0 0 20px #6a1b9a;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: #00e676;
+            font-weight: bold;
+            text-shadow: 0 0 5px #00e676;
+        }
+        .bg-picker-label {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .bg-picker-label:hover {
+            color: #00e676;
+        }
+        #bg-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="launcher-card">
+        <h1>DEMON LAUNCHER</h1>
+        
+        <input type="text" id="username" placeholder="Твій Нікнейм" value="DemonPlayer" />
+        
+        <select id="version-select">
+            <option value="1.21.1">Minecraft 1.21.1</option>
+            <option value="1.20.4">Minecraft 1.20.4</option>
+            <option value="1.16.5">Minecraft 1.16.5</option>
+            <option value="1.8.8">Minecraft 1.8.8 (Eagler)</option>
+        </select>
+
+        <button id="play-btn">ВОЙТИ В ИГРУ</button>
+        <div id="status">Система Demon готова</div>
+
+        <label for="bg-input" class="bg-picker-label">Установить свой фон</label>
+        <input type="file" id="bg-input" accept="image/*" />
+    </div>
+
+    <script>
+        // Код переключения фона
+        document.getElementById('bg-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.body.style.backgroundImage = `url('${event.target.result}')`;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Кнопка PLAY (Для браузера перенаправляет на веб-версию)
+        document.getElementById('play-btn').addEventListener('click', () => {
+            const version = document.getElementById('version-select').value;
+            document.getElementById('status').innerText = 'Загрузка ядра Demon для ' + version + '...';
+            
+            // Тут мы перенаправим на встроенный веб-майнкрафт
+            setTimeout(() => {
+                window.location.href = "https://eaglercraft.com"; 
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
